@@ -1,18 +1,19 @@
 import { useState } from 'react';
 
+import Link from "next/link";
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <nav className="max-w-5xl mx-auto flex justify-between items-center py-4 mb-10 relative z-50">
       <div className="font-[family-name:var(--font-montserrat)] font-bold text-xl text-white select-none">
-        EasyInvest
+        <Link href="/"> EasyInvest</Link>
       </div>
       <div className="hidden md:flex items-center space-x-2">
-        <a href="#" className="text-white/70 hover:text-white text-sm font-[family-name:var(--font-inter)]">Stocks</a>
-        <a href="#" className="text-white/70 px-10 hover:text-white text-sm font-[family-name:var(--font-inter)]">Blog</a>
-        <a href="#" className="bg-[#1C0846] px-4 py-1.5 rounded text-sm font-medium hover:bg-[#59497c] transition-colors border border-[#2C1259]">Login</a>
-        <a href="#" className="bg-[#894aff] px-4 py-1.5 rounded text-sm font-medium hover:bg-[#9d69ff] transition-colors border border-[#2C1259]">Sign Up</a>
+        <Link href="/stocks" className="text-white/70 hover:text-white text-sm font-[family-name:var(--font-inter)]">Stocks</Link>
+        <Link href="/blog" className="text-white/70 px-10 hover:text-white text-sm font-[family-name:var(--font-inter)]">Blog</Link>
+        <Link href="/auth/login" className="bg-[#1C0846] px-4 py-1.5 rounded text-sm font-medium hover:bg-[#59497c] transition-colors border border-[#2C1259]">Login</Link>
+        <Link href="/auth/signup" className="bg-[#894aff] px-4 py-1.5 rounded text-sm font-medium hover:bg-[#9d69ff] transition-colors border border-[#2C1259]">Sign Up</Link>
       </div>
       <div className="md:hidden flex items-center">
         <button 
@@ -45,20 +46,23 @@ export default function Navbar() {
             </svg>
           </button>
 
+          <div className="font-[family-name:var(--font-montserrat)] font-bold text-xl text-white select-none">
+            <Link href="/"> EasyInvest</Link>
+          </div>
           <div className="flex flex-col space-y-8 mt-8">
-            <a href="#" className="text-white/70 hover:text-white text-xl font-[family-name:var(--font-inter)] transition-colors hover:translate-x-2 transform duration-200">
-              Stocks
-            </a>
-            <a href="#" className="text-white/70 hover:text-white text-xl font-[family-name:var(--font-inter)] transition-colors hover:translate-x-2 transform duration-200">
+            <Link href="/stocks" className="text-white/70 hover:text-white text-xl font-[family-name:var(--font-inter)] transition-colors hover:translate-x-2 transform duration-200">
+              Stock
+            </Link>
+            <Link href="/blog" className="text-white/70 hover:text-white text-xl font-[family-name:var(--font-inter)] transition-colors hover:translate-x-2 transform duration-200">
               Blog
-            </a>
+            </Link>
             <div className="pt-8 space-y-4">
-              <a href="#" className="bg-[#1C0846] px-6 py-3 rounded-lg text-lg font-medium hover:bg-[#59497c] transition-all border border-[#2C1259] block text-center hover:shadow-lg hover:shadow-[#1C0846]/20">
+              <Link href="/auth/login" className="bg-[#1C0846] px-6 py-3 rounded-lg text-lg font-medium hover:bg-[#59497c] transition-all border border-[#2C1259] block text-center hover:shadow-lg hover:shadow-[#1C0846]/20">
                 Login
-              </a>
-              <a href="#" className="bg-[#894aff] px-6 py-3 rounded-lg text-lg font-medium hover:bg-[#9d69ff] transition-all border border-[#2C1259] block text-center hover:shadow-lg hover:shadow-[#894aff]/20">
+              </Link>
+              <Link href="/auth/signup" className="bg-[#894aff] px-6 py-3 rounded-lg text-lg font-medium hover:bg-[#9d69ff] transition-all border border-[#2C1259] block text-center hover:shadow-lg hover:shadow-[#894aff]/20">
                 Sign Up
-              </a>
+              </Link>
             </div>
           </div>
 

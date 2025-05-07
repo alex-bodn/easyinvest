@@ -23,3 +23,13 @@ h1, h2, h3, h4, h5, h6 {
 .numeric, code, pre, .data {
   font-family: var(--font-roboto-mono);
 }
+
+input {
+  border: #894aff solid 2px;
+  border-radius: 0.5rem;
+
+  @apply transition duration-200 ease-in-out 
+    focus:outline-none 
+  focus:border-[#513c76] 
+   
+}
