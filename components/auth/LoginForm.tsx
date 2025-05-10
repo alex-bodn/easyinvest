@@ -6,14 +6,13 @@ import axios from 'axios';
 import { SiGoogle } from 'react-icons/si';
 
 import { useRouter } from "next/navigation";
-import { SignupFormData } from '@/types/signup';
-import { signupSchema } from "@/lib/validators/signup";
+import { LoginFormData } from '@/types/login';
+import { loginSchema } from "@/lib/validators/login";
 
 export default function SignupForm() {
-  const [formData, setFormData] = useState<SignupFormData>({
+  const [formData, setFormData] = useState<LoginFormData>({
     email: '',
-    password: '',
-    passwordRepeat: ''
+    password: ''
   });
 
   const router = useRouter();
@@ -22,7 +21,7 @@ export default function SignupForm() {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState<string | null>(null);
 
-  const [formErrors, setFormErrors] = useState<Partial<Record<keyof SignupFormData, string>>>({});
+  const [formErrors, setFormErrors] = useState<Partial<Record<keyof LoginFormData, string>>>({});
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData(prev => ({
@@ -34,12 +33,12 @@ export default function SignupForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const result = signupSchema.safeParse(formData);
+    const result = loginSchema.safeParse(formData);
 
     if (!result.success) {
-      const fieldErrors: Partial<Record<keyof SignupFormData, string>> = {};
+      const fieldErrors: Partial<Record<keyof LoginFormData, string>> = {};
       for (const issue of result.error.issues) {
-        const field = issue.path[0] as keyof SignupFormData;
+        const field = issue.path[0] as keyof LoginFormData;
         fieldErrors[field] = issue.message;
       }
       setFormErrors(fieldErrors);
@@ -51,7 +50,7 @@ export default function SignupForm() {
     setError("");
 
     try {
-        const res = await fetch("/api/auth/signup", {
+        const res = await fetch("/api/auth/login", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(formData),
@@ -64,8 +63,10 @@ export default function SignupForm() {
         }
         
         if (res.ok) {
-            setSuccess("Account created successfully!");
-            setTimeout(() => { router.push("/auth/login"); }, 1500);
+            document.cookie = `auth_token=${data.token}; path=/; max-age=${60 * 60 * 24 * 7}`;
+
+            setSuccess("Account loggined!");
+            setTimeout(() => { router.push("/dashboard"); }, 1500);
         }
     } catch (err: any) {
         setError(err.response?.data?.message || "Something went wrong durring /signup request");
@@ -77,7 +78,7 @@ export default function SignupForm() {
   return (
     <form onSubmit={handleSubmit} className="flex flex-col justify-center p-10 space-y-4 bg-[#1C0846] rounded-2xl">
       <div>
-        <h1 className="text-3xl font-bold mb-4 text-center">Create Your Account</h1>
+        <h1 className="text-3xl font-bold mb-4 text-center">Log In</h1>
         <label>Email</label>
         <input
           name="email"
@@ -101,20 +102,8 @@ export default function SignupForm() {
         {formErrors.password && <p className="text-red-500 text-sm">{formErrors.password}</p>}
       </div>
 
-      <div>
-        <label>Repeat Password</label>
-        <input
-          name="passwordRepeat"
-          type="password"
-          value={formData.passwordRepeat}
-          onChange={handleChange}
-          className="w-full border px-3 py-2 rounded"
-        />
-        {formErrors.passwordRepeat && <p className="text-red-500 text-sm">{formErrors.passwordRepeat}</p>}
-      </div>
-
       <button type="submit" className="bg-[#894aff] text-white px-12 py-2 text-center rounded">
-        {loading ? "Creating account..." : "Sign Up"}
+        {loading ? "Logining into account..." : "Log In"}
       </button>
       
       <h3 className="text-lg text-center font-[family-name:var(--font-montserrat)] mb-2">
@@ -126,9 +115,8 @@ export default function SignupForm() {
         <SiGoogle size={25} className="text-[#894aff] ml-4 mt-2 sm:mt-0" />
       </button>
 
-      <div className="inline max-w-full">
-        <span>Already have account ?</span>
-        <a href="/auth/login" className="sm:ml-12 ml-4 text-[#894aff] font-bold hover:text-white text-sm font-[family-name:var(--font-inter)]">Login</a>
+      <div className="flex justify-center max-w-full">
+        <a href="/auth/signup" className="text-[#894aff] font-bold hover:text-white text-sm font-[family-name:var(--font-inter)]">Sign Up</a>
       </div>
 
       {error && <p className="text-red-500 text-m ">{error}</p>}
