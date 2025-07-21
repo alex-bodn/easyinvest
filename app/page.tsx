@@ -10,9 +10,7 @@ import HowItWorks from '@/components/home/HowItWorksSection';
 import TopStocksSection from '@/components/home/TopStocksSection';
 import CallToActionSection from '@/components/home/CallToActionSection';
 
-const SpinningCoin = dynamic(() => import('@/components/ui/Safe3D'), {
-  ssr: false,
-});
+import SpinningCoin from '@/components/ui/Safe3D';
 
 export default function Home() {
   return (
