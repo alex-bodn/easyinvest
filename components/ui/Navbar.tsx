@@ -46,7 +46,7 @@ export default function Navbar() {
             </svg>
           </button>
 
-          <div className="font-[family-name:var(--font-montserrat)] font-bold text-xl text-white select-none">
+          <div className="font-[family-name:var(--font-montserrat)] font-bold text-xl text-white select-none cursor-pointer">
             <Link href="/"> EasyInvest</Link>
           </div>
           <div className="flex flex-col space-y-8 mt-8">
