@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react'
 import { useFrame } from '@react-three/fiber'
-import { useGLTF, Environment, OrbitControls, Center } from '@react-three/drei'
+import { useGLTF, Environment, Center } from '@react-three/drei'
 
 import { Group } from 'three'
 

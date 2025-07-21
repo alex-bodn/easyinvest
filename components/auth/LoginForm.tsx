@@ -1,18 +1,16 @@
 'use client';
 
 import { useState } from 'react';
-import axios from 'axios';
-
 import { SiGoogle } from 'react-icons/si';
 
-import { useRouter } from "next/navigation";
+import { useRouter } from 'next/navigation';
 import { LoginFormData } from '@/types/login';
-import { loginSchema } from "@/lib/validators/login";
+import { loginSchema } from '@/lib/validators/login';
 
 export default function SignupForm() {
   const [formData, setFormData] = useState<LoginFormData>({
     email: '',
-    password: ''
+    password: '',
   });
 
   const router = useRouter();
@@ -21,14 +19,16 @@ export default function SignupForm() {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState<string | null>(null);
 
-  const [formErrors, setFormErrors] = useState<Partial<Record<keyof LoginFormData, string>>>({});
+  const [formErrors, setFormErrors] = useState<
+    Partial<Record<keyof LoginFormData, string>>
+  >({});
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData(prev => ({
-        ...prev,
-        [ e.target.name ]: e.target.value
+    setFormData((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
     }));
-  }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -47,36 +47,47 @@ export default function SignupForm() {
 
     setFormErrors({});
     setLoading(true);
-    setError("");
+    setError('');
 
     try {
-        const res = await fetch("/api/auth/login", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(formData),
-        });
-        const data = await res.json();
-      
-        if (!res.ok) {
-          setError(data.message || "Error durring signup reuqest");
-          return;
-        }
-        
-        if (res.ok) {
-            document.cookie = `auth_token=${data.token}; path=/; max-age=${60 * 60 * 24 * 7}`;
+      const res = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json();
 
-            setSuccess("Account loggined!");
-            setTimeout(() => { router.push("/dashboard"); }, 1500);
-        }
-    } catch (err: any) {
-        setError(err.response?.data?.message || "Something went wrong durring /signup request");
+      if (!res.ok) {
+        setError(data.message || 'Error durring signup reuqest');
+        return;
+      }
+
+      if (res.ok) {
+        document.cookie = `auth_token=${data.token}; path=/; max-age=${
+          60 * 60 * 24 * 7
+        }`;
+
+        setSuccess('Account loggined!');
+        setTimeout(() => {
+          router.push('/dashboard');
+        }, 1500);
+      }
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError('Something went wrong during /login request');
+      }
     } finally {
-        setLoading(false);
+      setLoading(false);
     }
-  }
+  };
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col justify-center p-10 space-y-4 bg-[#1C0846] rounded-2xl">
+    <form
+      onSubmit={handleSubmit}
+      className="flex flex-col justify-center p-10 space-y-4 bg-[#1C0846] rounded-2xl"
+    >
       <div>
         <h1 className="text-3xl font-bold mb-4 text-center">Log In</h1>
         <label>Email</label>
@@ -87,7 +98,9 @@ export default function SignupForm() {
           onChange={handleChange}
           className="w-full border px-3 py-2 rounded"
         />
-        {formErrors.email && <p className="text-red-500 text-sm">{formErrors.email}</p>}
+        {formErrors.email && (
+          <p className="text-red-500 text-sm">{formErrors.email}</p>
+        )}
       </div>
 
       <div>
@@ -99,15 +112,20 @@ export default function SignupForm() {
           onChange={handleChange}
           className="w-full border px-3 py-2 rounded"
         />
-        {formErrors.password && <p className="text-red-500 text-sm">{formErrors.password}</p>}
+        {formErrors.password && (
+          <p className="text-red-500 text-sm">{formErrors.password}</p>
+        )}
       </div>
 
-      <button type="submit" className="bg-[#894aff] text-white px-12 py-2 text-center rounded">
-        {loading ? "Logining into account..." : "Log In"}
+      <button
+        type="submit"
+        className="bg-[#894aff] text-white px-12 py-2 text-center rounded"
+      >
+        {loading ? 'Logining into account...' : 'Log In'}
       </button>
-      
+
       <h3 className="text-lg text-center font-[family-name:var(--font-montserrat)] mb-2">
-            OR
+        OR
       </h3>
 
       <button className="flex bg-[#28005C] text-white px-12 py-2 text-center rounded">
@@ -116,16 +134,21 @@ export default function SignupForm() {
       </button>
 
       <div className="flex justify-center max-w-full">
-        <a href="/auth/signup" className="text-[#894aff] font-bold hover:text-white text-sm font-[family-name:var(--font-inter)]">Sign Up</a>
+        <a
+          href="/auth/signup"
+          className="text-[#894aff] font-bold hover:text-white text-sm font-[family-name:var(--font-inter)]"
+        >
+          Sign Up
+        </a>
       </div>
 
       {error && <p className="text-red-500 text-m ">{error}</p>}
 
       {success && (
         <div className="text-[#4aff7d] border border-green-300 p-3 rounded mb-4 text-sm">
-            {success}
+          {success}
         </div>
-       )}
+      )}
     </form>
   );
 }

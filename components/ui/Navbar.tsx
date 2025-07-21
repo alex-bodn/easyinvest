@@ -10,7 +10,7 @@ export default function Navbar() {
         <Link href="/"> EasyInvest</Link>
       </div>
       <div className="hidden md:flex items-center space-x-2">
-        <Link href="/stocks" className="text-white/70 hover:text-white text-sm font-[family-name:var(--font-inter)]">Stocks</Link>
+        <Link href="/stock" className="text-white/70 hover:text-white text-sm font-[family-name:var(--font-inter)]">Stocks</Link>
         <Link href="/blog" className="text-white/70 px-10 hover:text-white text-sm font-[family-name:var(--font-inter)]">Blog</Link>
         <Link href="/auth/login" className="bg-[#1C0846] px-4 py-1.5 rounded text-sm font-medium hover:bg-[#59497c] transition-colors border border-[#2C1259]">Login</Link>
         <Link href="/auth/signup" className="bg-[#894aff] px-4 py-1.5 rounded text-sm font-medium hover:bg-[#9d69ff] transition-colors border border-[#2C1259]">Sign Up</Link>

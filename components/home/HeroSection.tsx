@@ -5,6 +5,8 @@ import { animate, stagger } from 'motion';
 
 import { splitText } from 'motion-plus';
 
+import Link from 'next/link';
+
 import Lottie from 'lottie-react';
 import chartAnimation from '@/public/chart-animation.json';
 
@@ -50,9 +52,11 @@ export default function Hero() {
             Begin your investment journey today and claim your $50 bonus! Ready
             to grow your wealth? Simply click below to start trading.
           </p>
-          <button className="px-5 py-2.5 bg-white text-[#1C0846] font-medium rounded-md transition-colors">
-            Get Started
-          </button>
+          <Link href="/auth/signup">
+            <button className="px-5 py-2.5 bg-white text-[#1C0846] font-medium rounded-md transition-colors cursor-pointer">
+              Get Started
+            </button>
+          </Link>
         </div>
         <div className="md:w-1/2 flex justify-center">
           <div className="bg-white/10 backdrop-blur-sm p-5 rounded-lg border border-[#2C1259]">
