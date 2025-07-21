@@ -1,7 +1,5 @@
 'use client';
 import Navbar from '@/components/ui/Navbar';
-
-import dynamic from 'next/dynamic';
 import { Canvas } from '@react-three/fiber';
 
 import Hero from '@/components/home/HeroSection';
