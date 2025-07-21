@@ -14,6 +14,8 @@ export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    if (typeof document === 'undefined') return;
+
     document.fonts.ready.then(() => {
       if (!containerRef.current) return;
       const { chars } = splitText(containerRef.current.querySelector('.wavy')!);
