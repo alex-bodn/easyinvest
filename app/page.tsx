@@ -2,10 +2,6 @@
 import Navbar from '@/components/ui/Navbar';
 
 import Hero from '@/components/home/HeroSection';
-import OutAdvantaves from '@/components/home/OurAdvantagesSection';
-import HowItWorks from '@/components/home/HowItWorksSection';
-import TopStocksSection from '@/components/home/TopStocksSection';
-import CallToActionSection from '@/components/home/CallToActionSection';
 
 import CanvasCoinWrapper from '@/components/ui/Safe3DWrapper';
 
@@ -16,11 +12,11 @@ export default function Home() {
       <Hero />
 
       <CanvasCoinWrapper />
-
+{/* 
       <OutAdvantaves />
       <HowItWorks />
       <TopStocksSection />
-      <CallToActionSection />
+      <CallToActionSection /> */}
     </div>
   );
 }
